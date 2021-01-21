@@ -1,0 +1,27 @@
+{
+  "name": "46495-buy-and-sell-3",
+  "version": "1.0.0",
+  "description": "* Студент: [Макс Шаповал](https://up.htmlacademy.ru/nodejs/3/user/46495). * Наставник: `Никита Куцелай`.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "7.18.0",
+    "eslint-config-htmlacademy": "2.0.0"
+  },
+  "scripts": {
+    "start": "node ./src/service/service.js",
+    "test": "npm run eslint",
+    "eslint": "eslint --ext .js src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kidjustkid/46495-buy-and-sell-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kidjustkid/46495-buy-and-sell-3/issues"
+  },
+  "homepage": "https://github.com/kidjustkid/46495-buy-and-sell-3#readme"
+}
