@@ -2,6 +2,7 @@
 
 const color = require('cli-color');
 const fs = require('fs');
+const path = require('path');
 const mockData = require('./mock-data');
 const {EXIT_CODES} = require('../../constants');
 const {getRandomNumber} = require('../../utils')
@@ -50,7 +51,7 @@ module.exports = {
       return;
     }
 
-    fs.writeFile('mocks.json', JSON.stringify(generate(itemsCount), null, 2), err => {
+    fs.writeFile(path.join(__dirname, '../../../mocks.json'), JSON.stringify(generate(itemsCount), null, 2), err => {
       if (err) {
         console.log(color.red('Что-то пошло не так...'))
         process.exit(EXIT_CODES.error);
