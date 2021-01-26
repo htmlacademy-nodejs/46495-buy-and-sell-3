@@ -51,7 +51,7 @@ module.exports = {
     }
 
     try {
-      await fs.writeFile(path.join(__dirname, `../../../mocks.json`), JSON.stringify(generate(itemsCount)));
+      await fs.writeFile(path.join(__dirname, `../../../mocks.json`), JSON.stringify(generate(itemsCount), null, 2));
       console.log(chalk.green(`Успешно! Данные можно найти в файле mocks.json`));
     } catch (err) {
       console.error(chalk.red(`Что-то пошло не так...`));
