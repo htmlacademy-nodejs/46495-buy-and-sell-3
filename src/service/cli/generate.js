@@ -3,8 +3,26 @@
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 const path = require(`path`);
-const mockData = require(`./mock-data`);
 const {getRandomNumber} = require(`../../utils`);
+
+const FILE_PATH = {
+  destination: path.join(__dirname, `../../../mocks.json`),
+  source: {
+    titles: path.join(__dirname, `../../../data/titles.txt`),
+    sentences: path.join(__dirname, `../../../data/sentences.txt`),
+    categories: path.join(__dirname, `../../../data/categories.txt`)
+  }
+};
+
+const readContent = async (filePath) => {
+  try {
+    const content = await fs.readFile(filePath, `utf8`);
+    return content.trim().split(`\n`);
+  } catch (err) {
+    console.error(chalk.red(err));
+    throw new Error();
+  }
+};
 
 const stringPicker = (source, minCount, maxCount) => {
   const out = [];
@@ -21,15 +39,19 @@ const stringPicker = (source, minCount, maxCount) => {
   return out;
 };
 
-
-const generate = (count) => {
+const generate = async (count) => {
   const out = [];
+  const mockData = {
+    sentences: await readContent(FILE_PATH.source.sentences),
+    titles: await readContent(FILE_PATH.source.titles),
+    categories: await readContent(FILE_PATH.source.categories)
+  };
 
   for (let i = 0; i < count; i++) {
     out.push({
       type: `offer`,
       title: mockData.titles[getRandomNumber(0, mockData.titles.length - 1)],
-      description: stringPicker(mockData.descriptions, 1, 5).join(` `),
+      description: stringPicker(mockData.sentences, 1, 5).join(` `),
       sum: getRandomNumber(1000, 100000),
       picture: `item01.jpg`,
       category: stringPicker(mockData.categories, 1, 3)
@@ -51,7 +73,7 @@ module.exports = {
     }
 
     try {
-      await fs.writeFile(path.join(__dirname, `../../../mocks.json`), JSON.stringify(generate(itemsCount), null, 2));
+      await fs.writeFile(FILE_PATH.destination, JSON.stringify(await generate(itemsCount), null, 2));
       console.log(chalk.green(`Успешно! Данные можно найти в файле mocks.json`));
     } catch (err) {
       console.error(chalk.red(`Что-то пошло не так...`));
