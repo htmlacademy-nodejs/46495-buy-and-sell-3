@@ -4,13 +4,11 @@
   "description": "* Студент: [Макс Шаповал](https://up.htmlacademy.ru/nodejs/3/user/46495). * Наставник: `Никита Куцелай`.",
   "main": "index.js",
   "dependencies": {
-    "cli-color": "^2.0.0",
-    "cli-table": "0.3.4"
+    "chalk": "4.1.0"
   },
   "devDependencies": {
-    "@types/cli-color": "2.0.0",
     "eslint": "7.18.0",
-    "eslint-config-htmlacademy": "2.0.0"
+    "eslint-config-htmlacademy": "0.6.0"
   },
   "scripts": {
     "start": "node ./src/service/service.js",

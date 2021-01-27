@@ -1,11 +1,11 @@
 'use strict';
 
-const {version: currentVersion} = require('../../../package.json');
-const color = require('cli-color');
+const {version: currentVersion} = require(`../../../package.json`);
+const chalk = require(`chalk`);
 
 module.exports = {
-  name: '--version',
+  name: `--version`,
   run() {
-    console.log(`${color.yellow('Текущая версия:')} ${currentVersion}`);
+    console.log(`Текущая версия: ${chalk.blue(currentVersion)}`);
   }
 };
