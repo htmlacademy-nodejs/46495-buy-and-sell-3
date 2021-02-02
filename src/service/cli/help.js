@@ -3,14 +3,14 @@
 const chalk = require(`chalk`);
 
 const helpMessage = `
-    Гайд:
+    Example:
     ${chalk.yellow(`service.js <command>`)}
 
-    Команды:
-    ${chalk.yellow(`--version`)}             выводит номер версии
-    ${chalk.yellow(`--help`)}                печатает этот текст
-    ${chalk.yellow(`--generate <count>`)}    формирует файл mocks.json
-    ${chalk.yellow(`--server <port>`)}       стартуем сервер на указанном порту
+    Commands:
+    ${chalk.yellow(`--version`)}             show current app version
+    ${chalk.yellow(`--help`)}                show this message
+    ${chalk.yellow(`--generate <count>`)}    generate data to "mocks.json"
+    ${chalk.yellow(`--server <port>`)}       start server
 `;
 
 module.exports = {

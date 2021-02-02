@@ -1,10 +1,11 @@
 'use strict';
 
 const http = require(`http`);
+const path = require(`path`);
 const chalk = require(`chalk`);
 const {HTTP_PORT, HTTP_CODES} = require(`../../constants`);
 
-const getResponseText = (list) => (`
+const getResponseText = (articles) => (`
   <!Doctype html>
     <html lang="ru">
       <head>
@@ -13,7 +14,7 @@ const getResponseText = (list) => (`
       <body>
         <h1>Объявления:</h1>
         <ul>
-          ${list}
+          ${articles}
         </ul>
       </body>
     </html>
@@ -24,7 +25,7 @@ const onClientConnect = (request, response) => {
 
     case `/`:
       try {
-        const data = require(`../../../mocks.json`);
+        const data = require(path.join(__dirname, `../../../mocks.json`));
         const list = data.map((item) => `<li>${item.title}</li>`);
         const responseText = getResponseText(list.join(``));
 
@@ -35,7 +36,7 @@ const onClientConnect = (request, response) => {
         response.end(responseText);
       } catch (err) {
         response.writeHead(HTTP_CODES.NOT_FOUND, {
-          'Content-Type': `text/plain; charset=UTF-8`,
+          'Content-Type': `text/html; charset=UTF-8`,
         });
         response.end(`Mocks data not found...`);
       }
@@ -43,9 +44,9 @@ const onClientConnect = (request, response) => {
 
     default:
       response.writeHead(HTTP_CODES.NOT_FOUND, {
-        'Content-Type': `text/plain; charset=UTF-8`,
+        'Content-Type': `text/html; charset=UTF-8`,
       });
-      response.end(`Page Not found...`);
+      response.end(`Page not found...`);
   }
 };
 
@@ -57,16 +58,16 @@ module.exports = {
     const httpServer = http.createServer(onClientConnect);
 
     if (!Number.isInteger(port)) {
-      console.error(chalk.red(`Порт указан не верно.`));
+      console.error(chalk.red(`Wrong port index...`));
       return;
     }
 
     httpServer.listen(port, (err) => {
       if (err) {
-        return console.error(chalk.red(`Ошибка при создании http-сервера.)`, err));
+        return console.error(chalk.red(`Something went wrong...`, err));
       }
 
-      return console.log(`${chalk.blue(`Сервер стартонул на порту:`)} ${port}`);
+      return console.log(`${chalk.blue(`Server starts on port:`)} ${port}`);
     });
   }
 };

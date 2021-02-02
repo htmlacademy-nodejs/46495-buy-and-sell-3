@@ -68,15 +68,15 @@ module.exports = {
     const itemsCount = !countProp ? 1 : Number(countProp);
 
     if (!Number.isInteger(itemsCount) || itemsCount === 0 || itemsCount > 1000) {
-      console.log(chalk.red(`Нужно ввести число от 1 до 1000`));
+      console.log(chalk.red(`Please, set number from 1 to 1000`));
       return;
     }
 
     try {
       await fs.writeFile(FILE_PATH.destination, JSON.stringify(await generate(itemsCount), null, 2));
-      console.log(chalk.green(`Успешно! Данные можно найти в файле mocks.json`));
+      console.log(chalk.green(`Success! You can find generated data in file "mocks.json"`));
     } catch (err) {
-      console.error(chalk.red(`Что-то пошло не так...`));
+      console.error(chalk.red(`Something went wrong...`));
     }
   }
 };
