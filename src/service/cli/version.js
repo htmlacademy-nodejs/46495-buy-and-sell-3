@@ -6,6 +6,6 @@ const chalk = require(`chalk`);
 module.exports = {
   name: `--version`,
   run() {
-    console.log(`Текущая версия: ${chalk.blue(currentVersion)}`);
+    console.log(`Current version: ${chalk.blue(currentVersion)}`);
   }
 };
