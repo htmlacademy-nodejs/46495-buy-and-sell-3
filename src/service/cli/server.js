@@ -3,7 +3,7 @@
 const http = require(`http`);
 const path = require(`path`);
 const chalk = require(`chalk`);
-const {HTTP_PORT, HTTP_CODES} = require(`../../constants`);
+const {HTTP_SERVICE_PORT, HTTP_CODES} = require(`../../constants`);
 
 const getResponseText = (articles) => (`
   <!Doctype html>
@@ -54,7 +54,7 @@ module.exports = {
   name: `--server`,
   run(args) {
     const [setPort] = args;
-    const port = setPort ? Number(setPort) : HTTP_PORT;
+    const port = setPort ? Number(setPort) : HTTP_SERVICE_PORT;
     const httpServer = http.createServer(onClientConnect);
 
     if (!Number.isInteger(port)) {
