@@ -3,7 +3,7 @@
 const http = require(`http`);
 const path = require(`path`);
 const chalk = require(`chalk`);
-const {HTTP_PORT, HTTP_CODES} = require(`../../constants`);
+const {HTTP_API_SERVICE_PORT, HTTP_CODES} = require(`../../constants`);
 
 const getResponseText = (articles) => (`
   <!Doctype html>
@@ -54,7 +54,7 @@ module.exports = {
   name: `--server`,
   run(args) {
     const [setPort] = args;
-    const port = setPort ? Number(setPort) : HTTP_PORT;
+    const port = setPort ? Number(setPort) : HTTP_API_SERVICE_PORT;
     const httpServer = http.createServer(onClientConnect);
 
     if (!Number.isInteger(port)) {
@@ -67,7 +67,7 @@ module.exports = {
         return console.error(chalk.red(`Something went wrong...`, err));
       }
 
-      return console.log(`${chalk.blue(`Server starts on port:`)} ${port}`);
+      return console.log(`${chalk.blue(`API server starts on port:`)} ${port}`);
     });
   }
 };

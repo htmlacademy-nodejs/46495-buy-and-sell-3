@@ -11,5 +11,6 @@ module.exports = {
     SUCCESS: 200,
     NOT_FOUND: 404
   },
-  HTTP_PORT: 3000
+  HTTP_API_SERVICE_PORT: 3000,
+  HTTP_FRONT_SERVICE_PORT: 8000
 };
