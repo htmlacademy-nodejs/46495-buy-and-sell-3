@@ -3,6 +3,7 @@
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 const path = require(`path`);
+const {nanoid} = require(`nanoid`);
 const {getRandomNumber} = require(`../../utils`);
 
 const FILE_PATH = {
@@ -10,7 +11,8 @@ const FILE_PATH = {
   source: {
     titles: path.join(__dirname, `../../../data/titles.txt`),
     sentences: path.join(__dirname, `../../../data/sentences.txt`),
-    categories: path.join(__dirname, `../../../data/categories.txt`)
+    categories: path.join(__dirname, `../../../data/categories.txt`),
+    comments: path.join(__dirname, `../../../data/comments.txt`)
   }
 };
 
@@ -39,22 +41,32 @@ const stringPicker = (source, minCount, maxCount) => {
   return out;
 };
 
+const generateComments = (count, comments) => (
+  Array(count).fill({}).map(() => ({
+    id: nanoid(),
+    text: stringPicker(comments, 1, 4).join(` `)
+  }))
+);
+
 const generate = async (count) => {
   const out = [];
   const mockData = {
     sentences: await readContent(FILE_PATH.source.sentences),
     titles: await readContent(FILE_PATH.source.titles),
-    categories: await readContent(FILE_PATH.source.categories)
+    categories: await readContent(FILE_PATH.source.categories),
+    comments: await readContent(FILE_PATH.source.comments)
   };
 
   for (let i = 0; i < count; i++) {
     out.push({
+      id: nanoid(),
       type: `offer`,
       title: mockData.titles[getRandomNumber(0, mockData.titles.length - 1)],
       description: stringPicker(mockData.sentences, 1, 5).join(` `),
       sum: getRandomNumber(1000, 100000),
       picture: `item01.jpg`,
-      category: stringPicker(mockData.categories, 1, 3)
+      category: stringPicker(mockData.categories, 1, 3),
+      comments: generateComments(getRandomNumber(1, 4), mockData.comments)
     });
   }
 

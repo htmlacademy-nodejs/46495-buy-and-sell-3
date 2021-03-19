@@ -2,12 +2,12 @@
 
 const express = require(`express`);
 const chalk = require(`chalk`);
-const offersRouter = require(`./api/routes/offers`);
-const {HTTP_API_SERVICE_PORT, HTTP_CODES} = require(`../../constants`);
+const routes = require(`../api`);
+const {HTTP_API_SERVICE_PORT, HTTP_CODES, API_PREFIX} = require(`../../constants`);
 
 const app = express();
 app.use(express.json());
-app.use(`/offers`, offersRouter);
+app.use(API_PREFIX, routes);
 app.use((req, res) => {
   res.status(HTTP_CODES.NOT_FOUND).send(`not found...`);
 });
