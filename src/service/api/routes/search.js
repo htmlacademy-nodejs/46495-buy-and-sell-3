@@ -11,7 +11,10 @@ module.exports = (app, searchService) => {
     const {query} = req.query;
 
     if (!query) {
-      return res.status(HTTP_CODES.BAD_REQUEST).send(`please set query...`);
+      return res.status(HTTP_CODES.BAD_REQUEST).json({
+        code: HTTP_CODES.BAD_REQUEST,
+        errorMessages: [`please set query...`]
+      });
     }
 
     return res.status(HTTP_CODES.SUCCESS).json(searchService.search(query));

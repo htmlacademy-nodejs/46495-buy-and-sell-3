@@ -31,7 +31,7 @@ module.exports = (app, offerService) => {
   route.delete(`/:offerId`, offerExists(offerService), (req, res) => {
     const {offerId} = req.params;
     offerService.delete(offerId);
-    return res.status(HTTP_CODES.SUCCESS).send(`Offer ${offerId} was deleted`);
+    return res.status(HTTP_CODES.SUCCESS).json({success: `Offer ${offerId} was deleted`});
   });
 
   route.get(`/:offerId/comments`, offerExists(offerService), (req, res) => {
@@ -43,7 +43,7 @@ module.exports = (app, offerService) => {
   route.delete(`/:offerId/comments/:commentId`, offerExists(offerService), (req, res) => {
     const {offerId, commentId} = req.params;
     offerService.deleteComment(offerId, commentId);
-    return res.status(HTTP_CODES.SUCCESS).send(`Comment ${commentId} was deleted`);
+    return res.status(HTTP_CODES.SUCCESS).json({success: `Comment ${commentId} was deleted`});
   });
 
   route.post(`/:offerId/comments`, offerExists(offerService), commentValidator, (req, res) => {

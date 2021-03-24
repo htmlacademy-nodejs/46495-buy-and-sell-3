@@ -39,7 +39,10 @@ module.exports = (req, res, next) => {
   }
 
   if (errorMessages.length) {
-    return res.status(HTTP_CODES.BAD_REQUEST).json(errorMessages);
+    return res.status(HTTP_CODES.BAD_REQUEST).json({
+      code: HTTP_CODES.BAD_REQUEST,
+      errorMessages
+    });
   }
 
   return next();
