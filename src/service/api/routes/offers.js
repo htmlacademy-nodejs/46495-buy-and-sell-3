@@ -19,7 +19,7 @@ module.exports = (app, offerService) => {
 
   route.post(`/`, offerValidator, (req, res) => {
     const offer = offerService.create(req.body);
-    return res.status(HTTP_CODES.SUCCESS).json(offer);
+    return res.status(HTTP_CODES.CREATED).json(offer);
   });
 
   route.put(`/:offerId`, offerExists(offerService), offerValidator, (req, res) => {
@@ -30,8 +30,8 @@ module.exports = (app, offerService) => {
 
   route.delete(`/:offerId`, offerExists(offerService), (req, res) => {
     const {offerId} = req.params;
-    offerService.delete(offerId);
-    return res.status(HTTP_CODES.SUCCESS).json({success: `Offer ${offerId} was deleted`});
+    const deletedOffer = offerService.delete(offerId);
+    return res.status(HTTP_CODES.SUCCESS).json(deletedOffer);
   });
 
   route.get(`/:offerId/comments`, offerExists(offerService), (req, res) => {
@@ -42,8 +42,13 @@ module.exports = (app, offerService) => {
 
   route.delete(`/:offerId/comments/:commentId`, offerExists(offerService), (req, res) => {
     const {offerId, commentId} = req.params;
-    offerService.deleteComment(offerId, commentId);
-    return res.status(HTTP_CODES.SUCCESS).json({success: `Comment ${commentId} was deleted`});
+    const deletedComment = offerService.deleteComment(offerId, commentId);
+
+    if (!deletedComment) {
+      res.status(HTTP_CODES.NOT_FOUND).json({error: `comment not found...`});
+    }
+
+    return res.status(HTTP_CODES.SUCCESS).json(deletedComment);
   });
 
   route.post(`/:offerId/comments`, offerExists(offerService), commentValidator, (req, res) => {

@@ -47,7 +47,9 @@ class OfferService {
   }
 
   delete(offerId) {
+    const offerToDelete = this._offers.find((item) => item.id === offerId);
     this._offers = this._offers.filter((item) => item.id !== offerId);
+    return offerToDelete;
   }
 
   getComments(offerId) {
@@ -56,11 +58,16 @@ class OfferService {
   }
 
   deleteComment(offerId, commentId) {
+    let commentToDelete;
+
     this._offers.forEach((item) => {
       if (item.id === offerId) {
+        commentToDelete = item.comments.find((comment) => comment.id === commentId);
         item.comments = item.comments.filter((comment) => comment.id !== commentId);
       }
     });
+
+    return commentToDelete;
   }
 
   createComment(offerId, {text}) {

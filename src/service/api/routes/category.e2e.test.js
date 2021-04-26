@@ -144,7 +144,6 @@ describe(`API returns category list`, () => {
 
   test(`Status code 200`, () => expect(response.statusCode).toBe(HTTP_CODES.SUCCESS));
   test(`Returns list of 5 categories`, () => expect(response.body.length).toBe(5));
-
   test(`Category names are "Разное", "Книги", "Игры", "Посуда", "Животные"`, () => expect(response.body).toEqual(
       expect.arrayContaining([`Разное`, `Книги`, `Игры`, `Посуда`, `Животные`])
   ));
