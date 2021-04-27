@@ -16,5 +16,9 @@ module.exports = {
   },
   HTTP_API_SERVICE_PORT: 3000,
   HTTP_FRONT_SERVICE_PORT: 8000,
-  API_PREFIX: `/api`
+  API_PREFIX: `/api`,
+  ENV: {
+    DEVELOPMENT: `development`,
+    PRODUCTION: `production`
+  }
 };
