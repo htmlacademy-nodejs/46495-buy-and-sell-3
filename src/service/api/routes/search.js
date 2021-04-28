@@ -17,7 +17,9 @@ module.exports = (app, searchService) => {
       });
     }
 
-    return res.status(HTTP_CODES.SUCCESS).json(searchService.search(query));
+    const response = searchService.search(query);
+
+    return response.length ? res.status(HTTP_CODES.SUCCESS).json(response) : res.status(HTTP_CODES.NOT_FOUND).json(response);
   });
 
 };
